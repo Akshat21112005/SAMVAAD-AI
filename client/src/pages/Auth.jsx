@@ -22,8 +22,14 @@ function Auth() {
       const user = response.user;
       const name = user.displayName;
       const email = user.email;
-      const result = await api.post(`/auth/google`, { name, email });
+      // Grab the Firebase ID token for backend verification
+      const idToken = await user.getIdToken();
+      
+      // Send to backend with idToken - this is what triggers the auth cookie!
+      const result = await api.post(`/auth/google`, { name, email, idToken });
       dispatch(setUserData(result.data));
+      console.log("Backend sync successful! Auth cookie is now set.");
+      
       const fromLocation = location.state?.from;
       navigate(`${fromLocation?.pathname || "/practice"}${fromLocation?.search || ""}`, {
         replace: true,
