@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const SERVER_URL =
-  import.meta.env.VITE_SERVER_URL || "http://localhost:8000";
+  import.meta.env.VITE_SERVER_URL || "https://akshatbhatt515334-samvaad-ai.hf.space";
 
 export const api = axios.create({
   baseURL: `${SERVER_URL}/api`,
